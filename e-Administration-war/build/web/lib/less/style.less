@@ -1,0 +1,1027 @@
+ /* default values */
+@pry-color: white;
+@sec-color: green;
+@tet-color: #151515;
+@def-font: 100% Helvetica, sans-serif;
+@def-logo: url('../../media/icons/icon_269x290.png');
+@def-mob-width: 600px;
+
+/* [BEGINNING] shapes */
+.octagon-clip {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+/* [END] shapes */
+
+// [BEGINNING] Mixins //
+.fit-bg-image(@size) {
+  background-size: @size;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.shadow-down {
+  filter: drop-shadow(0px 0px 5px #a6a5a5);
+}
+
+.drop-shadow(@customColor) {
+  filter: drop-shadow(0px 0px 5px @customColor);
+}
+
+.fill-width {
+  width: -moz-available;
+  width: -webkit-fill-available;
+}
+
+.trans-middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+.perst-anim(@animation, @duration){
+  animation: @animation @duration ease;
+  animation-fill-mode: forwards;
+}
+
+.inaline {
+  display: flex;
+}
+// [END] Mixins //
+
+/**
+*---------------------------------------------------------
+* [START] GENERAL STYLESHEET
+*---------------------------------------------------------
+* This less section is designated for all general rules
+*
+**/
+
+body {
+  margin: auto;
+  font: @def-font;
+  background-color: @tet-color;
+}
+
+.unsee {
+  display: none;
+}
+
+.web-bg {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+  .fit-bg-image(cover);
+  filter: brightness(0.14) blur(6px);
+}
+
+.web-container {
+  background-color: @tet-color;
+  position: relative;
+  &[data-page="dashboard"] {
+    position: static;
+  }
+}
+
+.web-loader-bar {
+	position: fixed;
+	top: 0;
+	height: 3px;
+	width: 0%;
+	background: #4646ff;
+	filter: drop-shadow(0px 0px 5px #4646ff);
+	z-index: 99999999;
+}
+
+.anim-bg {
+  background-color: black;
+  transition: opacity .5s;
+}
+
+.mob-element {
+  display: none;
+  @media screen and (max-width: @def-mob-width){
+    display: block;
+  }
+}
+/**
+*---------------------------------------------------------
+* [END] GENERAL STYLESHEET
+*---------------------------------------------------------
+**/
+
+/**
+*---------------------------------------------------------
+* [START] ANIMATION STYLESHEET
+*---------------------------------------------------------
+* This less section is designated for animations
+*
+**/
+
+@-webkit-keyframes fadein {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+@keyframes fadein {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+@-webkit-keyframes expandfade {
+  from {
+    width: 0%;
+    opacity: 0;
+  }
+
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes expandfade {
+  from {
+    width: 0%;
+    opacity: 0;
+  }
+
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+/**
+*---------------------------------------------------------
+* [END] ANIMATION STYLESHEET
+*---------------------------------------------------------
+**/
+
+
+/**
+*---------------------------------------------------------
+* [START] TOP BAR STYLESHEET
+*---------------------------------------------------------
+* This less section is designated for animations
+*
+**/
+.top-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 55px;
+	background: @pry-color;
+	display: flex;
+  transition: height .3s;
+  box-shadow: 0px 1px 4px #020202a1;
+  @media screen and (max-width: @def-mob-width){
+    height: 50px;
+  }
+  z-index: 1;
+}
+
+.tb-logo {
+	width: 60px;
+	height: 100%;
+	background-image: @def-logo;
+	.fit-bg-image(40px);
+  @media screen and (max-width: @def-mob-width){
+    background-size: 35px;
+  }
+}
+
+.tb-logo-name {
+	margin: auto 0;
+	font-family: Times New Roman;
+  overflow: hidden;
+  height: 15px;
+  width: 220px;
+  transition: .3s;
+  animation: expandfade 3s ease;
+  animation-fill-mode: forwards;
+  &::after {
+    content: 'INSTITUTE OF TECHNOLOGY | e-ADMINISTRATION';
+  }
+  @media screen and (max-width: 800px) {
+    font-size: 13px;
+    &::after {
+      content: 'INSTITUTE OF TECHNOLOGY';
+    }
+  }
+}
+
+.tb-nv-farRight {
+	margin: auto;
+	position: absolute;
+	width: max-content;
+	right: 12px;
+	top: 50%;
+	transform: translate(0%, -50%);
+	font-size: 12px;
+  display: flex;
+}
+
+.tb-nav-fr-profileBtn {
+	font-size: 17px;
+}
+
+.tb-nv-btn {
+	margin: auto 11px;
+	transition-duration: .3s;
+  &:hover {
+	   cursor: pointer;
+	   color: @sec-color;
+  }
+  @media screen and (max-width: 600px){
+    display: none;
+  }
+}
+
+.mob_tb-nv-btn {
+	font-size: 21px;
+}
+
+.tb-btn-active {
+  color: @sec-color;
+}
+/**
+*---------------------------------------------------------
+* [END] TOP BAR STYLESHEET
+*---------------------------------------------------------
+**/
+
+
+/**
+*---------------------------------------------------------
+* [START] SIGN-IN STYLESHEET
+*---------------------------------------------------------
+* This less section is designated for the login page
+* @author Osunrinde Adebayo Stephen aka YoungFox
+**/
+
+.sign-in-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background: #111;
+}
+
+.sign-in-form {
+	background: #fff;
+	position: relative;
+	width: 100%;
+	height: 500px;
+  .trans-middle();
+	max-width: 800px;
+	display: flex;
+  overflow: hidden;
+  .drop-shadow(#000000a6);
+  border-top: 3px solid #4646ff;
+  @media screen and (max-width: @def-mob-width) {
+    width: 88%;
+  }
+}
+
+.sign-in-banner {
+	margin: auto;
+  width: 100%;
+	height: 100%;
+  position: relative;
+  background-color: black;
+  margin-left: 0;
+  .fit-bg-image(cover);
+  @media screen and (max-width: @def-mob-width) {
+    display: none;
+  }
+}
+
+.sign-in-banner-bg {
+	width: 100%;
+	height: 100%;
+  z-index: 1;
+  .fit-bg-image(cover);
+  filter: brightness(0.4);
+}
+
+.sign-in-banner-logo {
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+	z-index: 2;
+  .drop-shadow(#000);
+  .fit-bg-image(200px);
+}
+
+.sign-in-form-div {
+	margin: auto;
+	width: 0%;
+	height: 100%;
+  background: #cacaca;
+  position: relative;
+}
+
+.sign-in-form-top-bar {
+	border-bottom: 5px solid gray;
+	padding: 18px;
+	background: white;
+	color: gray;
+	font-size: 18px;
+  position: relative;
+}
+
+.sif-top-bar-close {
+  margin: auto;
+  margin-right: 0;
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translate(0,-50%);
+  transition-duration: .3s;
+  &:hover {cursor: pointer}
+  &:active {font-size: 23px}
+}
+
+.sif-input-intel {
+	font-size: 14px;
+	color: #5e5b5b;
+	margin: auto 10px;
+	border: 1px solid gray;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+.sif-input-div {
+	margin: auto;
+	width: 95%;
+	margin-top: 10px;
+	background: white;
+  display: flex;
+  input {
+  	.fill-width();
+  	padding: 10px;
+  	border: none;
+  	background: transparent;
+  }
+
+  input[name="login"] {
+	  background: green;
+	  color: white;
+    transition-duration: .3s;
+    &:hover {
+      cursor: pointer;
+      background: black;
+    }
+  }
+  .sif-inp-icon {
+  	padding: 10px;
+  	background: gainsboro;
+  	color: #4f4f4f;
+  }
+}
+
+.sif-footer {
+	position: absolute;
+	bottom: 9px;
+	font-size: 10px;
+	text-align: center;
+	left: 0;
+	right: 0;
+	color: #606060;
+}
+
+/**
+*---------------------------------------------------------
+* [END] SIGN-IN STYLESHEET
+*---------------------------------------------------------
+**/
+
+
+/**
+*---------------------------------------------------------
+* [START] BODY SECTION 1 (HOME) STYLESHEET
+*---------------------------------------------------------
+* This less section is designated for the BODY SECTION 1 in the home page
+* @author Osunrinde Adebayo Stephen aka YoungFox
+**/
+
+.bdy-sec-1 {
+	position: relative;
+	margin-top: 7%;
+  transform: .5s;
+  @media screen and (max-width: @def-mob-width) {
+    margin-top: 40%;
+  }
+  @media screen and (max-width: 400px) {
+    margin-top: 40%;
+  }
+}
+
+.big-text {
+	color: white;
+	text-align: center;
+	font-size: 160px;
+	font-weight: bold;
+  @media screen and (max-width: @def-mob-width) {
+    font-size: 65px;
+  }
+}
+
+.sub-big-text {
+	text-align: center;
+  color: black;
+  background: white;
+  width: max-content;
+  margin: auto;
+  padding: 9px 22px;
+  font-size: 26px;
+  @media screen and (max-width: @def-mob-width) {
+    font-size: 15px;
+  }
+}
+
+.bdy-sec-1-menu {
+	.fill-width();
+	text-align: center;
+	margin-left: -75px;
+  margin-top: 53px;
+  padding: 80px 0px;
+  background: #2d2a2a8c;
+  margin-bottom: 44px;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  @media screen and (max-width: @def-mob-width) {
+    margin-left: -40px;
+    display: flex;
+    overflow: scroll;
+    padding: 15px;
+    margin: 15% auto;
+  }
+}
+
+.bs1-menu-div {
+  .octagon-clip();
+  background: white;
+  width: 150px;
+  height: 150px;
+  position: relative;
+  @media screen and (max-width: @def-mob-width) {
+    width: 70px;
+    height: 70px;
+  }
+  &::after {
+	  content: attr(data-info);
+	  font-size: 12px;
+	  text-align: center;
+	  position: absolute;
+	  left: 0;
+	  top: 0;
+	  margin: auto;
+	  background: #6c6c6c;
+	  bottom: 0;
+	  padding: 56px 0px;
+    opacity: 0;
+    transition-duration: .3s;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    .fill-width();
+    @media screen and (max-width: @def-mob-width) {
+      font-size: 7px;
+      padding: 20px 0px;
+    }
+  }
+
+  &:hover {
+      &::after {
+          opacity: 1;
+      }
+  }
+}
+
+.bs1-menu-icon {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	font-size: 42px;
+        @media screen and (max-width: @def-mob-width) {
+            font-size: 24px;
+        }
+}
+
+.hComb{
+  width: 75px;
+  height: 75px;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 165px;
+  transition-duration: .3s;
+  opacity: 0;
+  .perst-anim(fadein, 1s);
+  &:nth-child(2){
+    animation-delay: .5s;
+  }
+  &:nth-child(3){
+    animation-delay: 1.5s;
+  }
+  &:nth-child(4){
+    animation-delay: 2.0s;
+  }
+  &:nth-child(5){
+    animation-delay: 2.5s;
+  }
+  &:nth-child(6){
+    animation-delay: 3.0s;
+  }
+  &:nth-child(7){
+    animation-delay: 3.5s;
+  }
+
+  @media screen and (max-width: @def-mob-width) {
+    width: 33px;
+    height: 40px;
+    display: block;
+    margin-left: 30px;
+    margin-bottom: 38px;
+    margin-top: 4px;
+    margin-right: 10px;
+    &:last-child{
+      padding-right: 60px;
+    }
+  }
+
+  &:hover {
+	  filter: drop-shadow(0px 0px 5px black);
+	  transform: scale(1.15);
+	  z-index: 1;
+	  cursor: pointer;
+  }
+
+  &:nth-of-type(2n){
+    top: 120px;
+    @media screen and (max-width: @def-mob-width) {
+      top: 0;
+    }
+  }
+
+  &:first-child {
+    margin-left: 10px;
+  }
+}
+/**
+*---------------------------------------------------------
+* [END] BODY SECTION 1 (HOME) STYLESHEET
+*---------------------------------------------------------
+**/
+
+
+/**
+*---------------------------------------------------------
+* [START] BODY SECTION 2 (HOME) STYLESHEET
+*---------------------------------------------------------
+* This less section is designated for the BODY SECTION 1 in the home page
+* @author Osunrinde Adebayo Stephen aka YoungFox
+**/
+
+.server-message-1 { // no error with server
+	color: white;
+	position: relative;
+	display: flex;
+	width: 100%;
+	max-width: 500px;
+	background: #479f47;
+	margin: 5px auto;
+  border-radius: 5px;
+  overflow: hidden;
+  opacity: 0;
+  .perst-anim(fadein, 4s);
+  @media screen and (max-width: @def-mob-width){
+    width: 95%;
+  }
+  &:first-child{
+    margin-top: 0px;
+  }
+  .server-message-icon {
+  	padding: 15px;
+  	background: green;
+  }
+
+  .server-message-text {
+  	margin: auto 0;
+  	text-align: left;
+  	.fill-width();
+  	padding: 0px 8px;
+    @media screen and (max-width: @def-mob-width){
+      font-size: 14px;
+    }
+  }
+}
+
+.server-message-2 { // error with server
+  .server-message-1();
+  background: #9f4747;
+  .server-message-icon {
+  	background: #a80000;
+  }
+}
+
+.server-message-3 { // warning message
+  .server-message-1();
+  background: #9f8d47;
+  .server-message-icon {
+  	background: #caca1a;
+  }
+}
+
+/**
+*---------------------------------------------------------
+* [END] BODY SECTION 2 (HOME) STYLESHEET
+*---------------------------------------------------------
+**/
+
+
+/**
+*---------------------------------------------------------
+* [START] BODY SECTION FOOTER STYLESHEET
+*---------------------------------------------------------
+**/
+.bdy-sec-footer {
+	color: #b5b5b5;
+	position: absolute;
+	.fill-width();
+	text-align: center;
+	font-size: 10px;
+  padding: 22px 0;
+  margin-top: 20px;
+  bottom: -88px;
+  @media screen and (max-width: 800px) {
+    font-size: 9px;
+  }
+}
+/**
+*---------------------------------------------------------
+* [END] BODY SECTION FOOTER STYLESHEET
+*---------------------------------------------------------
+**/
+
+
+/**
+*---------------------------------------------------------
+* [START] DASHBOARD STYLESHEET
+*---------------------------------------------------------
+**/
+
+.web-container[data-page="dashboard"] {
+  .top-bar {z-index: 2;}
+  .l-side-bar {z-index: 1;}
+}
+
+// left side bar
+.l-side-bar {
+	height: 100%;
+	position: fixed;
+	left: 0;
+	background: #262626;
+	top: 0;
+	padding-top: 38px;
+}
+
+.l-side-bar-btn {
+	display: block;
+	padding: 13px;
+	font-size: 20px;
+	color: white;
+  position: relative;
+  &:hover, &:hover .lsbb_tooltip {
+    display: inline-block;
+    cursor: pointer;
+  }
+}
+
+.lsbb_tooltip {
+	position: absolute;
+	font-size: 12px;
+	width: max-content;
+	background: #444;
+	padding: 4px 6px;
+	border-radius: 6px;
+	left: 60px;
+  display: none;
+  color: white;
+  &::after {
+  	position: absolute;
+  	content: '';
+  	border-right: 6px solid #444;
+  	width: 0;
+  	height: 0;
+  	border-bottom: 5px solid transparent;
+  	border-top: 5px solid transparent;
+  	top: 0;
+  	bottom: 0;
+  	margin: auto;
+  	left: -6px;
+  }
+}
+
+.lsbb_active_btn {
+  background: #f0f0f0;
+  color: #393939;
+}
+
+/////////////////////////////////////////////////////
+// [BEGINNING] Internal body
+/////////////////////////////////////////////////////
+.in-body {
+	display: flex;
+  position: absolute;
+	top: 38px;
+	left: 56px;
+	right: 0;
+	bottom: 0;
+}
+
+.ib-labs-side {
+	width: 250px;
+	background: #d5d5d5;
+	height: 100%;
+}
+
+.ibls-button {
+	display: flex;
+	background: white;
+	border: 2px solid white;
+	margin: 7px;
+	border-radius: 8px;
+  transition: .3s;
+  &:hover {
+    background: black;
+    color: white;
+    cursor: pointer;
+  }
+  &.active {
+	  border: 2px solid black;
+  }
+}
+
+.ibls-button-icon {
+	padding: 12px;
+}
+
+.ibls-button-name {
+	margin: auto;
+	margin-left: 0;
+  a {
+	   display: block;
+  }
+}
+
+.ib-labs-body {
+	width: 100%;
+	height: 100%;
+	background: #aeaeae;
+	border-left: 1px solid #acaaaa;
+  position: relative;
+}
+
+.iblb-status-bar {
+	background: #e8e8e8;
+	display: flex;
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.iblb-status-bar-icon {
+	padding: 12px;
+	width: max-content;
+	margin: auto 0px;
+	background: gray;
+	color: white;
+}
+
+.iblb-status-bar-status {
+	margin: auto;
+	margin-left: 0;
+	padding-left: 10px;
+  &[data-status="1"] {
+    color: #f00;
+  }
+  &[data-status="0"] {
+    color: green;
+  }
+}
+
+.iblbqd {
+	background: #cacaca;
+}
+
+.iblb-quick-details {
+	display: flex;
+	padding: 10px;
+	width: max-content;
+	margin: auto;
+}
+
+.iblb-qd-tiles {
+	padding: 22px 0px;
+	background: #e3e3e3;
+	border-radius: 7px;
+	margin: auto 10px;
+	width: 115px;
+  transition: .3s;
+  &:hover {
+    .shadow-down();
+  }
+}
+
+.iblb-qd-tiles-icon {
+	font-size: 33px;
+  text-align: center;
+}
+
+.iblb-qd-tiles-txt {
+	font-size: 15px;
+	text-align: center;
+}
+
+.iblb-lab-map {
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	top: 164px;
+	left: 0;
+	right: 0;
+  overflow-y: scroll;
+}
+
+.iblb-lab-map-Div {
+  .fill-width();
+}
+
+.iblb-lab-map-Div-header {
+	font-size: 22px;
+	padding: 10px;
+	background: gray;
+	.fill-width();
+	color: white;
+  position: sticky;
+  top: 0;
+}
+
+.iblb-lab-map-Div-body {
+  .fill-width();
+  margin: auto;
+}
+
+.iblb-lab-map-details {
+	width: 30%;
+	background: #c1c1c1;
+}
+
+.map-container {
+	display: flex;
+	flex-wrap: wrap;
+  width: 100%;
+  margin: auto;
+	background: #aeaeae;
+  .iblb-qd-tiles {
+	  margin: 10px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.flex-break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.overlay-div {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #00000085;
+	z-index: 999999;
+}
+
+.overlay-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+  .drop-shadow(#00000054);
+}
+
+#overlay-body {
+	width: 600px;
+	height: max-content;
+	background: white;
+	overflow: hidden;
+  min-height: 150px;
+}
+
+.overlay-header {
+	background: #5b5a5a;
+	height: 35px;
+  display: flex;
+  a {
+  	margin: auto;
+  	display: block;
+  	width: max-content;
+  	margin-right: 0;
+  	font-size: 20px;
+  	padding: 6px;
+  	color: #ff4949;
+  }
+ span {
+  	color: white;
+  	font-weight: bold;
+  	display: block;
+  	margin: auto;
+  	margin-left: 13px;
+  }
+}
+
+.fill-bg-msg {
+	background: #bdbdbd;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+  .fill-msg {
+  	position: absolute;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+  	color: #979797;
+  	font-size: 27px;
+  }
+}
+/////////////////////////////////////////////////////
+// [END] Internal body
+/////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+// [START] FORMS
+/////////////////////////////////////////////////////
+
+/// ADD LAB FORM ///
+.iblb-form-inp-div {
+	display: flex;
+	border: 2px solid gray;
+	margin: 7px;
+  .iblb-form-inp-label {
+  	font-size: 12px;
+  	background: gray;
+  	color: white;
+  	padding: 6px;
+  	min-width: 63px;
+  }
+  input {
+	  padding: 8px;
+	  border: none;
+	  .fill-width();
+  }
+  input[name="submit"] {
+	  background: gray;
+	  color: white;
+    transition: .3s;
+    &:hover {
+      cursor: pointer;
+      background: black;
+    }
+  }
+}
+/////////////////////////////////////////////////////
+// [END] FORMS
+/////////////////////////////////////////////////////
+/**
+*---------------------------------------------------------
+* [END] DASHBOARD STYLESHEET
+*---------------------------------------------------------
+**/
+
+///////////////////////////////////////////////
+//// THIS PROJECT IS A DEATH SENTENCE T_T /////
+///////////////////////////////////////////////
